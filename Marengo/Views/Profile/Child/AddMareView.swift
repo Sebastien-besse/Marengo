@@ -9,8 +9,9 @@ import SwiftUI
 
 struct AddMareView: View {
     @Environment(\.dismiss) private var dismiss
-    @State var name: String
-    @State var age: String
+    @State var name: String = ""
+    @State var age: String = ""
+    
     var body: some View {
             ScrollView {
                 VStack{
@@ -40,6 +41,9 @@ struct AddMareView: View {
                                 .foregroundStyle(.white)
                                 .scaledToFit()
                                 .frame(width: 150, height: 150)
+                                .onTapGesture {
+                                    
+                                }
                         }
                     }
                 HStack{
@@ -59,9 +63,17 @@ struct AddMareView: View {
                         })
                         .keyboardType(.numberPad)
                 }
-                Text("Caractéristiques")
-                        .bold()
-                        .padding()
+                    HStack{
+                        Text("Caractéristiques")
+                                .bold()
+                                .padding()
+                        Image(systemName: "arrow.down")
+                            .resizable()
+                            .foregroundStyle(.accent)
+                            .bold()
+                            .frame(width: 20, height: 20)
+                    }
+                
                 CursorHorseExtratedView(title: "Longueur", nameValueMin: "Court", nameValueMax: "Long")
                 CursorHorseExtratedView(title: "Ossature", nameValueMin: "Légére", nameValueMax: "Lourde")
                 CursorHorseExtratedView(title: "Taille", nameValueMin: "Petit", nameValueMax: "Grand")

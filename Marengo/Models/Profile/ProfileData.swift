@@ -8,7 +8,7 @@
 import SwiftUI
 
 var profiles = [
-    Profile(name: "Amandine", image: "person2", stallion: [], mare: []),
+    Profile(name: "Amandine", image: "person2", stallion: stallions, mare: mares),
     Profile(name: "Philippe", image: "person5", stallion: [], mare: []),
     Profile(name: "Juliette", image: "person3", stallion: [], mare: [])
 ]

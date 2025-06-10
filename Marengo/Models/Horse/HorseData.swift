@@ -14,8 +14,8 @@ var stallions = [
 ]
 
 var mares = [
-    Mare(name: "Pupuce", age: 8, image: "horse4", discipline: .Dressage, foal: foal1),
-    Mare(name: "Angel", age: 11, image: "horse5", discipline: .CSO, foal: foal2),
-    Mare(name: "Valerie", age: 10, image: "horse6", discipline: .CourseGalop, foal: foal3),
-    Mare(name: "Micheline", age: 5, image: "horse7", discipline: .CourseTrot, foal: foal4)
+    Mare(name: "Pupuce", age: 8, image: "horse4", imageP: "horse1p", discipline: .Dressage, foal: foal1),
+    Mare(name: "Angel", age: 11, image: "horse5", imageP: "horse2p", discipline: .CSO, foal: foal2),
+    Mare(name: "Valerie", age: 10, image: "horse6", imageP: "horse3p", discipline: .CourseGalop, foal: foal3),
+    Mare(name: "Micheline", age: 5, image: "horse7", imageP: "horse5p", discipline: .CourseTrot, foal: foal4)
 ]

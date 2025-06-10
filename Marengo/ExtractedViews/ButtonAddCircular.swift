@@ -10,7 +10,7 @@ import SwiftUI
 struct ButtonAddCircularExtractedView: View {
     let systemImage: String
     let action: () -> Void
-    @State private var showingModal = false
+    @Binding var showingModal: Bool
     
     var body: some View {
         Button {
@@ -25,9 +25,9 @@ struct ButtonAddCircularExtractedView: View {
                         .bold()
                 }
         }
-        .sheet(isPresented: $showingModal) {
-            AddAdvertisementModalView()
-        }
+//        .sheet(isPresented: $showingModal) {
+//            AddAdvertisementModalView()
+//       }
     }
 }
 
@@ -89,7 +89,7 @@ struct AddAdvertisementModalView: View {
 }
 
 #Preview("Circular Button") {
-    ButtonAddCircularExtractedView(systemImage: "plus", action: { print("Bouton circulaire cliqué") })
+    ButtonAddCircularExtractedView(systemImage: "plus", action: { print("Bouton circulaire cliqué") }, showingModal: .constant(false))
 }
 
 #Preview("Modal") {
