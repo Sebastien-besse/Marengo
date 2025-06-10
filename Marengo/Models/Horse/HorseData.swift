@@ -10,7 +10,9 @@ var stallions = [
     Stallion(name: "Petit Tonnerre", age: 5, image: "horse1", imageP: "horse1p", discipline: .Dressage, descendent: [], ancestor: [], price: 1500, isFavorite: true),
     Stallion(name: "Bernard", age: 6, image: "horse2", imageP: "horse2p", discipline: .CourseGalop, descendent: [], ancestor: [], price: 1800, isFavorite: true),
     Stallion(name: "Rodrigo", age: 7, image: "horse3", imageP: "horse3p", discipline: .CourseTrot, descendent: [], ancestor: [], price: 2000, isFavorite: true),
-    Stallion(name: "Elixir", age: 11, image: "horse10", imageP: "horse10p", discipline: .CSO, descendent: [], ancestor: [], price: 10000)
+    Stallion(name: "Elixir", age: 11, image: "horse10", imageP: "horse10p", discipline: .CSO, descendent: [], ancestor: [], price: 10000),
+    Stallion(name: "Pedrolito", age: 4, image: "horse8", imageP: "horse8p", discipline: .CourseTrot, descendent: [], ancestor: [], price: 1100, isFavorite: true),
+    Stallion(name: "Potion", age: 4, image: "horse9", imageP: "horse9p", discipline: .CSO, descendent: [], ancestor: [], price: 1250)
 ]
 
 var mares = [

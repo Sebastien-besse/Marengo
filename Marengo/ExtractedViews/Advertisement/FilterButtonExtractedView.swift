@@ -1,93 +1,130 @@
 //
-//  Untitled.swift
+//  FilterButtonExtractedView.swift
 //  Marengo
 //
 //  Created by YacineBahaka  on 06/06/2025.
 //
 
-
 import SwiftUI
 
-struct FilterButtonExtractedView: View {
-    @State private var isPressed = false
-    @State private var showingFilterOptions = false
-    var action: () -> Void = {}
+// Enum pour les options de filtre - plus maintenable
+enum FilterOption: String, CaseIterable, Identifiable {
+    case priceAscending = "Prix croissant"
+    case priceDescending = "Prix décroissant"
+    case nearestFirst = "Plus près de moi"
+    case farthestFirst = "Plus loin de moi"
     
-    var body: some View {
-        Button(action: {
-            showingFilterOptions = true
-        }) {
-            HStack(spacing: 6) {
-                Image(systemName: "line.horizontal.3.decrease.circle")
-                    .font(.system(size: 16, weight: .medium))
-                Text("Filtrer")
-                    .font(.system(size: 16, weight: .medium))
-            }
-            .foregroundColor(.primary)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color(.systemGray6))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color(.systemGray4), lineWidth: 0.5)
-                    )
-            )
-        }
-        .scaleEffect(isPressed ? 0.95 : 1.0)
-        .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
-            withAnimation(.easeInOut(duration: 0.1)) {
-                isPressed = pressing
-            }
-        }, perform: {})
-        .actionSheet(isPresented: $showingFilterOptions) {
-            ActionSheet(
-                title: Text("Filtrer par"),
-                buttons: [
-                    .default(Text("Prix croissant")) {
-                        print("Filtrer par prix croissant")
-                    },
-                    .default(Text("Prix décroissant")) {
-                        print("Filtrer par prix décroissant")
-                    },
-                    .default(Text("Nom A-Z")) {
-                        print("Filtrer par nom A-Z")
-                    },
-                    .default(Text("Nom Z-A")) {
-                        print("Filtrer par nom Z-A")
-                    },
-                    .cancel(Text("Annuler"))
-                ]
-            )
+    var id: String { rawValue }
+    
+    var systemImage: String {
+        switch self {
+        case .priceAscending: return "arrow.up.circle"
+        case .priceDescending: return "arrow.down.circle"
+        case .nearestFirst: return "location.circle"
+        case .farthestFirst: return "location.circle.fill"
         }
     }
 }
 
-#Preview {
-    HStack {
-        FilterButtonExtractedView()
-        
-        // Simulation du bouton favori pour comparaison visuelle
-        Button(action: {}) {
+struct FilterButtonExtractedView: View {
+    // MARK: - Properties
+    @Binding var selectedFilter: FilterOption?
+    let onFilterSelected: (FilterOption?) -> Void
+    
+    @State private var isPressed = false
+    @State private var showingFilterOptions = false
+    
+    // MARK: - Computed Properties
+    private var isFilterActive: Bool {
+        selectedFilter != nil
+    }
+    
+    private var buttonText: String {
+        selectedFilter?.rawValue ?? "Filtrer"
+    }
+    
+    // MARK: - Body
+    var body: some View {
+        Button {
+            showingFilterOptions = true
+        } label: {
             HStack(spacing: 6) {
-                Image(systemName: "heart")
-                    .font(.system(size: 16, weight: .medium))
-                Text("Favoris")
-                    .font(.system(size: 16, weight: .medium))
+                Image(systemName: isFilterActive ? "line.horizontal.3.decrease.circle.fill" : "line.horizontal.3.decrease.circle")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundStyle(isFilterActive ? .blue : .primary)
+                
+                Text(buttonText)
+                    .font(.system(size: 14, weight: .medium))
+                    .lineLimit(1)
             }
-            .foregroundColor(.primary)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
+            .foregroundStyle(isFilterActive ? .blue : .primary)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
             .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color(.systemGray6))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color(.systemGray4), lineWidth: 0.5)
-                    )
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(isFilterActive ? .blue.opacity(0.1) : .gray.opacity(0.1))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(isFilterActive ? .blue.opacity(0.3) : .gray.opacity(0.3), lineWidth: 1)
             )
         }
+        .buttonStyle(ScaleButtonStyle()) // Style moderne pour les animations
+        .confirmationDialog(
+            "Filtrer par",
+            isPresented: $showingFilterOptions,
+            titleVisibility: .visible
+        ) {
+            // Boutons de filtre
+            ForEach(FilterOption.allCases) { option in
+                Button {
+                    handleFilterSelection(option)
+                } label: {
+                    Label(option.rawValue, systemImage: option.systemImage)
+                }
+            }
+            
+            // Bouton pour supprimer le filtre
+            if isFilterActive {
+                Button("Supprimer le filtre", role: .destructive) {
+                    handleFilterSelection(nil)
+                }
+            }
+            
+            // Bouton annuler
+            Button("Annuler", role: .cancel) { }
+        }
+        .accessibilityLabel(isFilterActive ? "Filtre actif: \(buttonText)" : "Filtrer")
+        .accessibilityHint("Touchez pour ouvrir les options de filtre")
     }
-    .padding()
+    
+    // MARK: - Methods
+    private func handleFilterSelection(_ option: FilterOption?) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            selectedFilter = option
+        }
+        onFilterSelected(option)
+    }
+}
+
+// MARK: - Custom Button Style
+struct ScaleButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+            .opacity(configuration.isPressed ? 0.8 : 1.0)
+            .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
+    }
+}
+
+// MARK: - Preview
+#Preview {
+    @Previewable @State var selectedFilter: FilterOption? = nil
+    
+    FilterButtonExtractedView(
+        selectedFilter: $selectedFilter,
+        onFilterSelected: { filter in
+            print("Filtre sélectionné: \(filter?.rawValue ?? "Aucun")")
+        }
+    )
 }

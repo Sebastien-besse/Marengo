@@ -1,3 +1,10 @@
+//
+//  FilterButtonExtractedView.swift
+//  Marengo
+//
+//  Created by Thibault on 06/06/2025.
+//
+
 import SwiftUI
 
 struct ToggleButtonExtractedView: View {
@@ -44,7 +51,8 @@ struct ToggleButtonExtractedView: View {
 }
 
 #Preview {
-    @Previewable @State var isToggled = false
+    @Previewable
+    @State var isToggled = false
     let sampleHorses: [Stallion] = stallions
     
     VStack(spacing: 20) {
