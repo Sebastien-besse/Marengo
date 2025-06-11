@@ -15,6 +15,7 @@
 import SwiftUI
 
 struct MessageView: View {
+    @Environment(\.dismiss) var dismiss
     @State var newMessage: String = ""
     @ObservedObject var conversation: Conversation
     
@@ -82,10 +83,15 @@ struct MessageView: View {
             Color.backgroundApp
                 .ignoresSafeArea()
             
+            
+            
             VStack(alignment:.leading){
+                
+                
                 ScrollView{
                     showListMessages(conversation.listMessages)
                 }
+                
                 
                 HStack{
                     TextField("Ecrire ici", text: $newMessage)
@@ -114,6 +120,34 @@ struct MessageView: View {
                 }
             }
             .padding()
+        }
+        .navigationBarBackButtonHidden()
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                HStack{
+                    Button(action:{
+                        dismiss()
+                    }, label:{
+                        Image(systemName: "arrow.left")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 25)
+                        
+                            .padding(.trailing)
+                        
+                    })
+                    Image(conversation.person.image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 36, height: 36)
+                        .clipShape(Circle())
+                    Text(conversation.person.name)
+                        .fontWeight(.medium)
+                        .padding(.leading, 8)
+                }
+                .foregroundStyle(.brownText)
+                
+            }
         }
     }
 }
