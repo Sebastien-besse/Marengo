@@ -5,7 +5,8 @@
 ## User settings
 xcuserdata/
 .DS_Store
-xcuserdata
+*.xcuserstate
+*.xcuserdata/
 UserInterfaceState.xcuserstate
 *.xcodeproj
 *.xcodeproj/*
