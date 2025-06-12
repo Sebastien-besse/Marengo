@@ -6,13 +6,13 @@
 //
 
 var foal1 =
-    Foal(caracteristic: [.init(name: "Ossature", point: 3, min: "Légère", max: "Lourde")], discipline: .CourseGalop)
+Foal(caracteristic: [.init(name: "Ossature", rating: .five, min: "Légère", max: "Lourde")], discipline: .CourseGalop)
 
 var foal2 =
-Foal(caracteristic: [.init(name: "Ossature", point: 4, min: "Légère", max: "Lourde")], discipline: .CCE)
+Foal(caracteristic: [.init(name: "Ossature", rating: .five, min: "Légère", max: "Lourde")], discipline: .CCE)
 
 var foal3 =
-    Foal(caracteristic: [.init(name: "Ossature", point: 1, min: "Légère", max: "Lourde")], discipline: .CSO)
+Foal(caracteristic: [.init(name: "Ossature", rating: .five, min: "Légère", max: "Lourde")], discipline: .CSO)
 
 var foal4 =
-    Foal(caracteristic: [.init(name: "Ossature", point: 2, min: "Légère", max: "Lourde")], discipline: .CourseTrot)
+Foal(caracteristic: [.init(name: "Ossature", rating: .five, min: "Légère", max: "Lourde")], discipline: .CourseTrot)

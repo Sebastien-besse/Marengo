@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MyHorseExtratedView: View {
-    let profile = profiles[0]
     @State var title: String
+    @Binding var profile: AddHorseViewModel
     
     var body: some View {
         VStack{
@@ -22,21 +22,19 @@ struct MyHorseExtratedView: View {
                 HStack{
                     getHorseType()
                 }
-                
             }
             .scrollIndicators(.hidden)
-            
         }
     }
     
     @ViewBuilder
     func getHorseType() -> some View {
         if title.lowercased() == "mes juments"{
-            ForEach(profile.mare) { mare in
+            ForEach(profile.profile.mare) { mare in
                 CardHorse(imageHorse: mare.imageP, nameHorse: mare.name)
             }
         }else{
-            ForEach(profile.stallion) { stallion in
+            ForEach(profile.profile.stallion) { stallion in
                 CardHorse(imageHorse: stallion.imageP, nameHorse: stallion.name)
             }
        
@@ -45,7 +43,7 @@ struct MyHorseExtratedView: View {
 }
 
 #Preview {
-    MyHorseExtratedView(title: "Etalon")
+    MyHorseExtratedView(title: "Etalon", profile: .constant(AddHorseViewModel()))
 }
 
 

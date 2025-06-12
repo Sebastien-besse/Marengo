@@ -8,19 +8,20 @@
 import SwiftUI
 
 struct ProfileView: View {
-    var profile = profiles[0]
     @State var isAddHorse: Bool = false
     @State var isMare: Bool = false
     @State var isStallion: Bool = false
+    @State var profile = AddHorseViewModel()
+    
     var body: some View {
         VStack{
-            Image(profile.image)
+            Image(profile.profile.image)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 120, height: 120)
                 .clipShape(Circle())
             
-            Text(profile.name)
+            Text(profile.profile.name)
                 .font(.system(size: 22))
                 .foregroundStyle(.brownText)
                 .bold()
@@ -34,9 +35,9 @@ struct ProfileView: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.top, 50)
-            MyHorseExtratedView(title: "Mes Etalon")
+            MyHorseExtratedView(title: "Mes Etalon", profile: $profile)
                 .padding(.bottom)
-            MyHorseExtratedView(title: "Mes Juments")
+            MyHorseExtratedView(title: "Mes Juments", profile: $profile)
         }
         .alert("Nouveau Cheval", isPresented: $isAddHorse, actions: {
             Button {
@@ -52,9 +53,9 @@ struct ProfileView: View {
             
         })
         .sheet(isPresented: $isMare, content: {
-            AddMareView()
+            AddMareView(addMare: $profile )
         })
-        .sheet(isPresented: $isStallion, content:{ AddStallionView()})
+        .sheet(isPresented: $isStallion, content:{ AddStallionView(addStallion: $profile)})
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding()
     }

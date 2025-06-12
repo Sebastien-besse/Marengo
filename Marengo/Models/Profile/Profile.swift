@@ -7,13 +7,20 @@
 
 import Foundation
 
-struct Profile: Identifiable {
+@Observable
+class Profile: Identifiable {
     let id: UUID = UUID()
     var name: String
     var image: String
     var stallion: [Stallion]
     var mare: [Mare]
     
+    init(name: String, image: String, stallion: [Stallion], mare: [Mare]) {
+        self.name = name
+        self.image = image
+        self.stallion = stallion
+        self.mare = mare
+    }
 }
 
 //extension Profile{
