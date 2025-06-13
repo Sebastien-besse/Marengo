@@ -15,12 +15,12 @@ class Stallion: Horse, Identifiable, Observable {
     var isFavorite: Bool = false
     
     
-    init(name: String, age: UInt8, image: String, imageP: String, discipline: Discipline,descendent: [Horse], ancestor: [Horse], price: Int, isFavorite: Bool = false) {
+    init(name: String, age: UInt8, image: String, imageP: String, discipline: Discipline,descendent: [Horse], ancestor: [Horse], price: Int, isFavorite: Bool = false, caracteristc: [Caracteristic]) {
         self.descendent = descendent
         self.ancestor = ancestor
         self.price = price
         self.isFavorite = isFavorite
-        super.init(name: name, age: age, image: image,imageP: imageP, discipline: discipline)
+        super.init(name: name, age: age, image: image,imageP: imageP, discipline: discipline, caracteristc: caracteristc)
     }
     
     // Données fixes pour matchPercentage basées sur le nom
@@ -29,11 +29,15 @@ class Stallion: Horse, Identifiable, Observable {
         case "Petit Tonnerre":
             return 95
         case "Bernard":
-            return 78
-        case "Rodrigo":
             return 85
+        case "Rodrigo":
+            return 63
         case "Elixir":
-            return 92
+            return 23
+        case "Pedrolito":
+            return 21
+        case "Potion":
+            return 1
         default:
 
             // Génère un pourcentage basé sur le hash du nom pour la cohérence

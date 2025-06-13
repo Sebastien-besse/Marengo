@@ -2,10 +2,12 @@ import SwiftUI
 
 struct AdvertisementView: View {
     @State private var viewModel = AdvertisementViewModel()
+    @State private var isPresented: Bool = false
     
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
+                // MARK: - Titre et bouton d'ajout d'étalon
                 HStack(alignment: .center) {
                     Text("Annonces")
                         .font(.largeTitle)
@@ -17,13 +19,14 @@ struct AdvertisementView: View {
                     ButtonAddCircularExtractedView(
                         systemImage: "plus",
                         action: {
-                            print("Bouton circulaire cliqué")
-                        }
+                            // Action du bouton
+                        }, showingModal: $isPresented
                     )
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 15)
 
+                // MARK: - Barre de recherche
                 VStack {
                     SearchBarExtractedView(
                         searchText: $viewModel.searchText,
@@ -35,9 +38,17 @@ struct AdvertisementView: View {
                     .padding(.bottom, 10)
                 }
                 
+                // MARK: - Section filtre et toggle
                 HStack {
-                    FilterButtonExtractedView()
+                    FilterButtonExtractedView(
+                        selectedFilter: $viewModel.selectedFilter,
+                        onFilterSelected: { filter in
+                            viewModel.applyFilter(filter)
+                        }
+                    )
+                    
                     Spacer()
+                    
                     ToggleButtonExtractedView(
                         isToggled: $viewModel.isShowingFavorites,
                         allHorses: viewModel.allHorses
@@ -45,24 +56,22 @@ struct AdvertisementView: View {
                 }
                 .padding(20)
                 
-                // Content
+                // MARK: - Grille des étalons
                 if viewModel.horses.isEmpty {
                     ContentUnavailableView(
                         "Aucune annonce",
                         systemImage: "horse",
-                        description: Text(viewModel.searchText.isEmpty ?
-                                        "Aucune annonce disponible" :
-                                        "Aucun résultat pour '\(viewModel.searchText)'\nEssayez de modifier votre recherche")
+                        description: Text(contentUnavailableDescription)
                     )
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     ScrollView {
                         LazyVGrid(
                             columns: [
-                                GridItem(.flexible(), spacing: 14),
-                                GridItem(.flexible(), spacing: 14)
+                                GridItem(.flexible(), spacing: 16),
+                                GridItem(.flexible(), spacing: 16)
                             ],
-                            spacing: 20
+                            spacing: 16
                         ) {
                             ForEach(viewModel.horses) { horse in
                                 if let index = viewModel.allHorses.firstIndex(where: { $0.id == horse.id }) {
@@ -97,6 +106,19 @@ struct AdvertisementView: View {
                     AdvertisementDetailsView(stallion: stallion)
                 }
             }
+        }
+    }
+    
+    // MARK: - Messages d'erreurs
+    private var contentUnavailableDescription: String {
+        if viewModel.isShowingFavorites && !viewModel.searchText.isEmpty {
+            return "Aucun favori trouvé pour '\(viewModel.searchText)'"
+        } else if viewModel.isShowingFavorites {
+            return "Aucun favori ajouté"
+        } else if !viewModel.searchText.isEmpty {
+            return "Aucun résultat pour '\(viewModel.searchText)'\nEssayez de modifier votre recherche"
+        } else {
+            return "Aucune annonce disponible"
         }
     }
 }

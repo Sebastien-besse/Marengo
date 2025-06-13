@@ -11,29 +11,46 @@ struct CursorHorseExtratedView: View {
     var title: String
     var nameValueMin: String
     var nameValueMax: String
-    @State var sliderValue: Double = 0
-    let sliderLevel: [Int] = [0, 1, 2, 3, 4, 5]
+    @State var ratingMare: RatingCaracteristic = .zero
+    @Binding var caracteristics: [Caracteristic]
     var body: some View {
         VStack{
             Text(title)
                 .bold()
                 .frame(maxWidth: .infinity, alignment: .leading)
-            HStack(spacing: 20){
+            HStack{
                 Text(nameValueMin)
-                Slider(value: $sliderValue, in: 0.0...Double(sliderLevel.count - 1), step: 1)
+                Spacer()
                 Text(nameValueMax)
             }
             .foregroundStyle(.gray)
+            
             HStack(spacing: 35){
-                ForEach(0...sliderLevel.count - 1, id: \.self){ index in
-                    Text("\(self.sliderLevel[index])")
+                ForEach(RatingCaracteristic.allCases, id: \.self.rawValue) { rating in
+                    if rating != .zero {
+                        Button {
+                            ratingMare = rating
+                            caracteristics.append(Caracteristic(name: title, rating: ratingMare, min: nameValueMin, max: nameValueMax))
+                            print(caracteristics)
+                  
+                        } label: {
+                            Text("\(rating.rawValue)")
+                                .font(.title)
+                                .foregroundStyle(.brownText)
+                                .padding()
+                                .background{
+                                    Circle()
+                                        .fill(ratingMare == rating ? .accent : .gray.opacity(0.2))
+                                }
+                        }
+                    }
                 }
-              }
             }
-        .padding()
         }
     }
+}
+
 
 #Preview {
-    CursorHorseExtratedView(title: "Longueur", nameValueMin: "Court", nameValueMax: "Long")
+    CursorHorseExtratedView(title: "Longueur", nameValueMin: "Court", nameValueMax: "Long", caracteristics: .constant([]))
 }
