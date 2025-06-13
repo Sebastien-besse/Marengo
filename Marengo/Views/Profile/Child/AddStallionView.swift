@@ -76,11 +76,6 @@ struct AddStallionView: View {
                         Text("Caractéristiques")
                                 .bold()
                                 .padding()
-                        Image(systemName: "arrow.down")
-                            .resizable()
-                            .foregroundStyle(.accent)
-                            .bold()
-                            .frame(width: 20, height: 20)
                     }
                     
                     ForEach(carateristicPossible) { caracteristic in
@@ -100,13 +95,12 @@ struct AddStallionView: View {
                  
                     dismiss()
                 } label: {
-                  
                     Text("Enregistrer")
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: 300, height: 50)
-                        .background(Color.blue)
+                        .background(Color.accent)
                         .cornerRadius(20)
                 }
             }
