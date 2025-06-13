@@ -51,22 +51,22 @@ struct FilterButtonExtractedView: View {
             HStack(spacing: 6) {
                 Image(systemName: isFilterActive ? "line.horizontal.3.decrease.circle.fill" : "line.horizontal.3.decrease.circle")
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(isFilterActive ? .blue : .primary)
+                    .foregroundStyle(isFilterActive ? .accent : .primary)
                 
                 Text(buttonText)
                     .font(.system(size: 14, weight: .medium))
                     .lineLimit(1)
             }
-            .foregroundStyle(isFilterActive ? .blue : .primary)
+            .foregroundStyle(isFilterActive ? .accent : .primary)
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
             .background(
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(isFilterActive ? .blue.opacity(0.1) : .gray.opacity(0.1))
+                    .fill(isFilterActive ? .accent.opacity(0.1) : .gray.opacity(0.1))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
-                    .stroke(isFilterActive ? .blue.opacity(0.3) : .gray.opacity(0.3), lineWidth: 1)
+                    .stroke(isFilterActive ? .accent.opacity(0.3) : .gray.opacity(0.3), lineWidth: 1)
             )
         }
         .buttonStyle(ScaleButtonStyle()) // Style moderne pour les animations
