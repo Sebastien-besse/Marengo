@@ -24,7 +24,7 @@ struct MainApp: View {
             Tab("Discussions", systemImage: "message.fill"){
                 ListConversationView(contact: listConversation
             )}
-            }
+        }
     }
 }
 

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    
     @State var isAddHorse: Bool = false
     @State var isMare: Bool = false
     @State var isStallion: Bool = false
@@ -36,7 +37,7 @@ struct ProfileView: View {
             .frame(maxWidth: .infinity)
             .padding(.top, 50)
             MyHorseExtratedView(title: "Mes Etalon", profile: $profile)
-                .padding(.bottom)
+                
             MyHorseExtratedView(title: "Mes Juments", profile: $profile)
         }
         .alert("Nouveau Cheval", isPresented: $isAddHorse, actions: {
@@ -53,11 +54,10 @@ struct ProfileView: View {
             
         })
         .sheet(isPresented: $isMare, content: {
-            AddMareView(addMare: $profile )
+            AddMareView(addMare: $profile)
         })
         .sheet(isPresented: $isStallion, content:{ AddStallionView(addStallion: $profile)})
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .padding()
     }
 }
 

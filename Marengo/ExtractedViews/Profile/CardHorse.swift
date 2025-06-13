@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CardHorse: View {
+    
     let imageHorse: String
     let nameHorse: String
     

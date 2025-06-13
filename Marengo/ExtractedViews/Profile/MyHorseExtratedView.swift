@@ -18,10 +18,14 @@ struct MyHorseExtratedView: View {
                 .foregroundStyle(.brownText)
                 .bold()
                 .frame(maxWidth: .infinity,maxHeight: 50, alignment: .leading)
-            ScrollView(.horizontal){
+                .padding(.leading, 20)
+            ScrollView(.horizontal, showsIndicators: false){
                 HStack{
                     getHorseType()
+                    Spacer()
+                        .frame(width: 6)
                 }
+                .padding(.horizontal)
             }
             .scrollIndicators(.hidden)
         }
@@ -32,18 +36,22 @@ struct MyHorseExtratedView: View {
         if title.lowercased() == "mes juments"{
             ForEach(profile.profile.mare) { mare in
                 CardHorse(imageHorse: mare.imageP, nameHorse: mare.name)
+                Spacer()
+                    .frame(width: 6)
             }
         }else{
             ForEach(profile.profile.stallion) { stallion in
                 CardHorse(imageHorse: stallion.imageP, nameHorse: stallion.name)
+                Spacer()
+                    .frame(width: 6)
             }
-       
+            
         }
     }
 }
 
 #Preview {
-    MyHorseExtratedView(title: "Etalon", profile: .constant(AddHorseViewModel()))
+    MyHorseExtratedView(title: "Mes Juments", profile: .constant(AddHorseViewModel()))
 }
 
 
