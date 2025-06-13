@@ -1,0 +1,19 @@
+.DS_Store
+*.xcuserstate
+*.xcuserdata/
+### Swift ###
+# Xcode
+#
+#
+## User settings
+xcuserdata/
+.DS_Store
+xcuserdata
+UserInterfaceState.xcuserstate
+*.xcodeproj
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
