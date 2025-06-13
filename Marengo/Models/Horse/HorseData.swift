@@ -39,7 +39,23 @@ var stallions = [
             Caracteristic(name: "Longueur", rating: .five, min: "Courte", max: "Longue"),
             Caracteristic(name: "Courage", rating: .five, min: "Peureux", max: "Courageux")
         ]
-    )
+    ),
+  Stallion(
+      name: "Pedrolito", age: 8, image: "horse5", imageP: "horse5p",
+      discipline: .CSO, descendent: [], ancestor: [], price: 2000,
+      caracteristc: [
+          Caracteristic(name: "Longueur", rating: .five, min: "Courte", max: "Longue"),
+          Caracteristic(name: "Courage", rating: .five, min: "Peureux", max: "Courageux")
+      ]
+  ),
+  Stallion(
+      name: "Potion", age: 3, image: "horse6", imageP: "horse6p",
+      discipline: .CSO, descendent: [], ancestor: [], price: 1200,
+      caracteristc: [
+          Caracteristic(name: "Longueur", rating: .five, min: "Courte", max: "Longue"),
+          Caracteristic(name: "Courage", rating: .five, min: "Peureux", max: "Courageux")
+      ]
+  )
 ]
 
 
