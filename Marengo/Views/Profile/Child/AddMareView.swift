@@ -9,9 +9,19 @@ import SwiftUI
 
 struct AddMareView: View {
     @Environment(\.dismiss) private var dismiss
-    @State var name: String
-    @State var age: String
+    @State var name: String = ""
+    @State var age: String = ""
+    @State var image: String = "horse1"
+    @State var imageP: String = "horse1p"
+    @State var descipline: Discipline = .CCE
+    @State var caracteristics: [Caracteristic] = []
+    @State var foal: Foal = .init(caracteristic: [], discipline: .CCE)
+    @Binding var addMare: AddHorseViewModel
+    @State var ratingHorse: RatingCaracteristic = .zero
+    
     var body: some View {
+        ZStack{
+      
             ScrollView {
                 VStack{
                 HStack {
@@ -40,6 +50,9 @@ struct AddMareView: View {
                                 .foregroundStyle(.white)
                                 .scaledToFit()
                                 .frame(width: 150, height: 150)
+                                .onTapGesture {
+                                    
+                                }
                         }
                     }
                 HStack{
@@ -59,29 +72,54 @@ struct AddMareView: View {
                         })
                         .keyboardType(.numberPad)
                 }
-                Text("Caractéristiques")
-                        .bold()
-                        .padding()
-                CursorHorseExtratedView(title: "Longueur", nameValueMin: "Court", nameValueMax: "Long")
-                CursorHorseExtratedView(title: "Ossature", nameValueMin: "Légére", nameValueMax: "Lourde")
-                CursorHorseExtratedView(title: "Taille", nameValueMin: "Petit", nameValueMax: "Grand")
-                CursorHorseExtratedView(title: "Technique de saut", nameValueMin: "Rigide", nameValueMax: "Souple")
+                    HStack{
+                        Text("Caractéristiques")
+                                .bold()
+                                .padding()
+                        Image(systemName: "arrow.down")
+                            .resizable()
+                            .foregroundStyle(.accent)
+                            .bold()
+                            .frame(width: 20, height: 20)
+                    }
                     
-                Text("Caratère")
-                    .bold()
-                    .padding()
-                CursorHorseExtratedView(title: "Courage", nameValueMin: "Peureux", nameValueMax: "Courageux")
-                CursorHorseExtratedView(title: "Respect", nameValueMin: "Calme", nameValueMax: "Fougueux")
+                    ForEach(carateristicPossible) { caracteristic in
+                        CursorHorseExtratedView(title: caracteristic.name, nameValueMin: caracteristic.min, nameValueMax: caracteristic.max, caracteristics: $caracteristics)
+                    }
+                   
             }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
             .scrollIndicators(.hidden)
             .padding()
-            
+            VStack{
+                Spacer()
+                Button {
+                    print("here 1 \(addMare.profile.mare)")
+                   
+                    addMare.addMare(name: name, age: UInt8(age) ?? 0, image: image, imageP: imageP, discipline: descipline, caracteristc: caracteristics, foal: foal)
+                 
+                    dismiss()
+                } label: {
+                  
+                    Text("Enregistrer")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: 300, height: 50)
+                        .background(Color.blue)
+                        .cornerRadius(20)
+                }
+            }
+
+
+        }
+        
+       
     }
     
 }
 
 #Preview {
-    AddMareView(name: "", age: "0")
+    AddMareView(addMare: .constant(AddHorseViewModel()), ratingHorse: .five)
 }

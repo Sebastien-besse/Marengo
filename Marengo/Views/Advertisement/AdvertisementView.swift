@@ -2,7 +2,8 @@ import SwiftUI
 
 struct AdvertisementView: View {
     @State private var viewModel = AdvertisementViewModel()
-
+    @State private var isPresented: Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
@@ -20,6 +21,8 @@ struct AdvertisementView: View {
                         action: {
                             // Action du bouton
                         }
+                            print("Bouton circulaire cliqué")
+                        }, showingModal: $isPresented
                     )
                 }
                 .padding(.horizontal, 20)
