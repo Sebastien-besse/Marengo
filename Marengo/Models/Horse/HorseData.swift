@@ -7,7 +7,7 @@
 import SwiftUI
 
 var stallions = [
-    Stallion(
+  Stallion(
         name: "Petit Tonnerre", age: 5, image: "horse1", imageP: "horse1p",
         discipline: .Dressage, descendent: [], ancestor: [], price: 1500, isFavorite: true,
         caracteristc: [

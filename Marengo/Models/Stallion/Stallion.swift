@@ -29,11 +29,15 @@ class Stallion: Horse, Identifiable, Observable {
         case "Petit Tonnerre":
             return 95
         case "Bernard":
-            return 78
-        case "Rodrigo":
             return 85
+        case "Rodrigo":
+            return 63
         case "Elixir":
-            return 92
+            return 23
+        case "Pedrolito":
+            return 21
+        case "Potion":
+            return 1
         default:
 
             // Génère un pourcentage basé sur le hash du nom pour la cohérence
