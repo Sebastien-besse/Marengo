@@ -8,38 +8,72 @@
 import SwiftUI
 
 struct EventsView: View {
+    @State private var eventsVM = EventViewModel()
+    
+    @State var date: Date
+    @State private var showDatePicker: Bool = false
+    @State private var searchText = ""
+    
+    var event: Event
     var body: some View {
-        NavigationStack{
-            ZStack {
-                Color.backgroundApp.ignoresSafeArea()
-                ScrollView{
+        
+        ZStack {
+            Color.backgroundApp.ignoresSafeArea()
+            VStack{
+                NavigationStack{
+                    
+//                    SearchBarEventExtractedView(searchText: $eventsVM.searchText, onSearchTextChanged: { _ in
+//                        eventsVM.filterEvents()
+//                    })
+                    SearchBarEventExtractedView(
+                        searchText: $eventsVM.searchText,
+                        onSearchTextChanged: { _ in
+                            eventsVM.filterEvents
+                        }
+                    )
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 10)
+                    
                     HStack{
-                        Spacer()
-
-                        Button(action: {
+                        
+                        Text("Choisir la date :")
+                            .foregroundStyle(.brownText)
+                        
+//                            DatePicker
+                            DatePicker("", selection: $date, displayedComponents: .date)
+                            .foregroundStyle(.brownText)
+                            .labelsHidden()
                             
-                        }, label: {
-                            Image(systemName: "calendar")
-                        })
+                            
                         Spacer()
                         
-                        Button(action: {
-                            
-                        }, label: {
-                            Text("Lieu")
-                        })
+//                        Button(action: {
+//                            
+//                        }, label: {
+//                            Text("Lieu")
+//                                .font(.system(size: 25))
+//                        })
                         
-                        Spacer()
                     }.padding()
                     
-                    ForEach(events){ event in
-                        EventsCard(event: event)
+                    
+                    
+                    ScrollView{
+                        ForEach(eventsVM.filterEvents){ event in
+                            NavigationLink(destination: {
+                                //                            EventDetailView(event: event)
+                            }, label: {
+                                EventsCard(event: event)
+                            }).navigationTitle("Evènements")
+                        }
+                        
                     }
                 }
             }
-        }    }
+        }
+    }
 }
 
 #Preview {
-    EventsView()
+    EventsView(date: Date(), event: events[0])
 }

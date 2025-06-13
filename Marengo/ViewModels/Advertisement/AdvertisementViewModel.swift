@@ -9,6 +9,7 @@ class AdvertisementViewModel {
     var selectedStallion: Stallion?
     var showingStallionDetails = false
     
+    // MARK: -
     func filterHorses() {
         var filteredHorses = allHorses
         
@@ -26,15 +27,18 @@ class AdvertisementViewModel {
         horses = filteredHorses
     }
     
+    // MARK: -
     func loadSampleData() {
         allHorses = stallions
         horses = allHorses
     }
     
+    // MARK: -
     func updateDisplayedHorses() {
         filterHorses()
     }
     
+    // MARK: -
     func toggleFavorite(for stallion: Stallion) {
         // Mise à jour dans allHorses
         if let allIndex = allHorses.firstIndex(where: { $0.id == stallion.id }) {
@@ -45,6 +49,7 @@ class AdvertisementViewModel {
         updateDisplayedHorses()
     }
     
+    // MARK: -
     func selectStallion(_ stallion: Stallion) {
         selectedStallion = stallion
         showingStallionDetails = true

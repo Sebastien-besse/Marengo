@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainApp: View {
+    
     var body: some View {
         TabView{
             
@@ -19,7 +20,7 @@ struct MainApp: View {
             }
             
             Tab("Evènements", systemImage: "calendar"){
-                EventsView()
+                EventsView(date: Date(), event: events[0])
             }
             Tab("Discussions", systemImage: "message.fill"){
                 ListConversationView(contact: listConversation
