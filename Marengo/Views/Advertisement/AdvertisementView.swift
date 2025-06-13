@@ -20,8 +20,6 @@ struct AdvertisementView: View {
                         systemImage: "plus",
                         action: {
                             // Action du bouton
-                        }
-                            print("Bouton circulaire cliqué")
                         }, showingModal: $isPresented
                     )
                 }
