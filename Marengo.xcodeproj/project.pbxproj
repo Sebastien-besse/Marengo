@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		71E108062DFC539E002E3FCB /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 71E108052DFC539E002E3FCB /* PopupView */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		2100296C2DE9DC9F001D7B28 /* Marengo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Marengo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71E108062DFC539E002E3FCB /* PopupView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = Marengo;
 			packageProductDependencies = (
+				71E108052DFC539E002E3FCB /* PopupView */,
 			);
 			productName = Marengo;
 			productReference = 2100296C2DE9DC9F001D7B28 /* Marengo.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 210029632DE9DC9F001D7B28;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				71E108042DFC539E002E3FCB /* XCRemoteSwiftPackageReference "PopupView" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2100296D2DE9DC9F001D7B28 /* Products */;
 			projectDirPath = "";
@@ -339,6 +348,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		71E108042DFC539E002E3FCB /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.11;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		71E108052DFC539E002E3FCB /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71E108042DFC539E002E3FCB /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 210029642DE9DC9F001D7B28 /* Project object */;
 }
