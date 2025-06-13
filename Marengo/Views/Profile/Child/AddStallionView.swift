@@ -26,7 +26,7 @@ struct AddStallionView: View {
             ScrollView {
                 VStack{
                 HStack {
-                    Text("Nouvelle Etalon")
+                    Text("Nouveau Etalon")
                         .font(.title)
                         .bold()
                     Spacer()
@@ -39,10 +39,10 @@ struct AddStallionView: View {
                             .bold()
                     }
                 }
-               RoundedRectangle(cornerRadius: 20)
-                    .fill(.gray.opacity(0.4))
-                    .frame(width: .infinity, height: 300)
-                    .overlay {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(.gray.opacity(0.4))
+                        .frame(width: max(370, 0), height: max(300, 0))
+                        .overlay {
                         Button {
                             
                         } label: {
@@ -52,7 +52,6 @@ struct AddStallionView: View {
                                 .scaledToFit()
                                 .frame(width: 150, height: 150)
                                 .onTapGesture {
-                                    
                                 }
                         }
                     }
