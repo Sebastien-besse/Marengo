@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct Caracteristic {
+struct Caracteristic: Identifiable {
+    let id: UUID = UUID()
     let name: String
-    var point: UInt8
+    var rating: RatingCaracteristic
     let min: String
     let max: String
 }

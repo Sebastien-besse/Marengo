@@ -11,8 +11,8 @@ class Mare: Horse, Identifiable{
     let id = UUID()
     var foal: Foal
     
-    init(name: String, age: UInt8, image: String, discipline: Discipline, foal: Foal) {
+    init(name: String, age: UInt8, image: String, imageP: String, discipline: Discipline, foal: Foal, caracteristc: [Caracteristic]) {
         self.foal = foal
-        super.init(name: name, age: age, image: image,imageP: image, discipline: discipline)
+        super.init(name: name, age: age, image: image,imageP: image, discipline: discipline, caracteristc: caracteristc)
     }
 }
