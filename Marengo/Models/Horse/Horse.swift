@@ -13,12 +13,14 @@ class Horse {
     var image: String
     var imageP: String
     var discipline: Discipline
+    var caracteristc : [Caracteristic]
     
-    init(name: String, age: UInt8, image: String, imageP: String, discipline: Discipline) {
+    init(name: String, age: UInt8, image: String, imageP: String, discipline: Discipline, caracteristc : [Caracteristic]) {
         self.name = name
         self.age = age
         self.image = image
         self.imageP = imageP
         self.discipline = discipline
+        self.caracteristc = caracteristc
     }
 }
