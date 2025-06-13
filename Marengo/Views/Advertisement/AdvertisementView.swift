@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AdvertisementView: View {
     @State private var viewModel = AdvertisementViewModel()
-    
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {

@@ -77,30 +77,30 @@ class AdvertisementViewModel {
     
     // MARK: - Favorites Management
     func toggleFavorite(for horse: Stallion) {
-        print("🎯 toggleFavorite appelé pour: \(horse.name)")
-        print("📊 État avant: isFavorite = \(horse.isFavorite)")
+        print("toggleFavorite appelé pour: \(horse.name)")
+        print("État avant: isFavorite = \(horse.isFavorite)")
         
-        // ✅ Trouve l'index et met à jour une seule fois
+        // Trouve l'index et met à jour une seule fois
         if let index = allHorses.firstIndex(where: { $0.id == horse.id }) {
-            print("✅ Cheval trouvé à l'index \(index)")
+            print("Cheval trouvé à l'index \(index)")
             
-            // ✅ Mutation atomique avec animation
+            // Mutation atomique avec animation
             withAnimation(.easeInOut(duration: 0.2)) {
                 allHorses[index].isFavorite.toggle()
             }
             
-            print("🔄 Nouvel état: isFavorite = \(allHorses[index].isFavorite)")
+            print("Nouvel état: isFavorite = \(allHorses[index].isFavorite)")
             
-            // ✅ Force la mise à jour de l'affichage
+            // Force la mise à jour de l'affichage
             updateDisplayedHorses()
-            print("📱 updateDisplayedHorses() appelé")
+            print("updateDisplayedHorses() appelé")
             
-            // ✅ Log pour debug du compteur de favoris
+            // Log pour debug du compteur de favoris
             let favoriteCount = allHorses.filter(\.isFavorite).count
-            print("💖 Total favoris: \(favoriteCount)")
+            print("Total favoris: \(favoriteCount)")
             
         } else {
-            print("❌ Erreur: Cheval non trouvé dans allHorses")
+            print("Erreur: Cheval non trouvé dans allHorses")
         }
     }
     
