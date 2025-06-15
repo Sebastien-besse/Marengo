@@ -11,8 +11,8 @@ struct AddStallionView: View {
     @Environment(\.dismiss) private var dismiss
     @State var name: String = ""
     @State var age: String = ""
-    @State var image: String = "horse1"
-    @State var imageP: String = "horse1p"
+    @State var image: String = "horse2"
+    @State var imageP: String = "horse2p"
     @State var descipline: Discipline = .CCE
     @State var caracteristics: [Caracteristic] = []
     @State var descendent: [Horse] = []
@@ -22,6 +22,8 @@ struct AddStallionView: View {
     @State var ratingHorse: RatingCaracteristic = .zero
     var body: some View {
         ZStack{
+            Color.backgroundApp
+                .ignoresSafeArea()
             ScrollView {
                 VStack{
                     HStack {

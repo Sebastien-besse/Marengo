@@ -9,22 +9,24 @@ import SwiftUI
 
 struct MainApp: View {
     var body: some View {
-        TabView{
-            
-            Tab("Etalons", image: "StallionIcon"){
-                AdvertisementView()
+        
+            TabView{
+                
+                Tab("Etalons", image: "StallionIcon"){
+                    AdvertisementView()
+                }
+                Tab("Mes chevaux", image: "HorseIcon"){
+                    ProfileView()
+                }
+                
+                Tab("Evènements", systemImage: "calendar"){
+                    EventsView(date: Date())
+                }
+                Tab("Discussions", systemImage: "message.fill"){
+                    ListConversationView(contact: listConversation
+                    )}
             }
-            Tab("Mes chevaux", image: "HorseIcon"){
-                ProfileView()
-            }
-            
-            Tab("Evènements", systemImage: "calendar"){
-                EventsView()
-            }
-            Tab("Discussions", systemImage: "message.fill"){
-                ListConversationView(contact: listConversation
-            )}
-        }
+        
     }
 }
 

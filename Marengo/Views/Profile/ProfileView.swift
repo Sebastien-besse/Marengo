@@ -15,6 +15,9 @@ struct ProfileView: View {
     @State var profile = AddHorseViewModel()
     
     var body: some View {
+        ZStack{
+            Color.backgroundApp
+                .ignoresSafeArea()
         VStack{
             Image(profile.profile.image)
                 .resizable()
@@ -30,14 +33,14 @@ struct ProfileView: View {
                 Text("Mes Chevaux")
                     .bold()
                     .font(.title)
-
+                
                 ButtonAddCircularExtractedView(systemImage: "plus", action: {}, showingModal: $isAddHorse)
                 
             }
             .frame(maxWidth: .infinity)
             .padding(.top, 50)
             MyHorseExtratedView(title: "Mes Etalon", profile: $profile)
-                
+            
             MyHorseExtratedView(title: "Mes Juments", profile: $profile)
         }
         .alert("Nouveau Cheval", isPresented: $isAddHorse, actions: {
@@ -58,6 +61,8 @@ struct ProfileView: View {
         })
         .sheet(isPresented: $isStallion, content:{ AddStallionView(addStallion: $profile)})
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+    }
+        
     }
 }
 

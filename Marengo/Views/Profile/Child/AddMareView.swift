@@ -26,6 +26,8 @@ struct AddMareView: View {
     var body: some View {
         
         ZStack{
+            Color.backgroundApp
+                .ignoresSafeArea()
             ScrollView {
                 VStack{
                     HStack {
