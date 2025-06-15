@@ -3,6 +3,9 @@ import SwiftUI
 struct AdvertisementView: View {
     @State private var viewModel = AdvertisementViewModel()
     @State private var isPresented: Bool = false
+    @State var isStallion: Bool = false
+    @State var profile = AddHorseViewModel()
+    //@State var stallions = AdvertisementView()
     
     var body: some View {
         NavigationStack {
@@ -12,16 +15,9 @@ struct AdvertisementView: View {
                     Text("Annonces")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .foregroundStyle(.primary)
-                    
+                        .foregroundStyle(.primary)                    
                     Spacer()
-                    
-                    ButtonAddCircularExtractedView(
-                        systemImage: "plus",
-                        action: {
-                            // Action du bouton
-                        }, showingModal: $isPresented
-                    )
+
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 15)
@@ -95,6 +91,8 @@ struct AdvertisementView: View {
                 
                 Spacer()
             }
+//            .sheet(isPresented: $isStallion, content:{ AddStallionView(addStallion: $advertisement)})
+
             .onAppear {
                 viewModel.loadSampleData()
             }
