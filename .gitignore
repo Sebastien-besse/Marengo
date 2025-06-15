@@ -208,4 +208,4 @@ firebase_options.dart
 *.gcda
 
 # Profiling data
-*.profdata
+*.profdata.DS_Store
