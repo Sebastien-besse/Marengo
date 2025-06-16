@@ -39,7 +39,11 @@ struct SearchBarExtractedView: View {
             .padding(.vertical, 12)
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(.systemGray6))
+                    .fill(Color(.white))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color(.gray).opacity(0.3), lineWidth: 1)
             )
         }
     

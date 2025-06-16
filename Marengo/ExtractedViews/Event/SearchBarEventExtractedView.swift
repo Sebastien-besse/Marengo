@@ -7,17 +7,6 @@
 
 import SwiftUI
 
-
-//
-//  SearchBarExtractedView.swift
-//  AIDE
-//
-//  Created by Thibault on 27/05/2025.
-//
-
-
-import SwiftUI
-
 struct SearchBarEventExtractedView: View {
     @Binding var searchText: String
     
@@ -28,7 +17,7 @@ struct SearchBarEventExtractedView: View {
                 .foregroundColor(.gray)
                 .padding(.leading, 12)
             
-            TextField("Rechercher un évènement...", text: $searchText)
+            TextField("Rechercher une ville...", text: $searchText)
                 .textFieldStyle(PlainTextFieldStyle())
                 
             
@@ -45,9 +34,11 @@ struct SearchBarEventExtractedView: View {
         .padding(.vertical, 12)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color(.systemGray6))
+                .fill(Color(.white))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color(.gray).opacity(0.3), lineWidth: 1)
         )
     }
 }
-
-
