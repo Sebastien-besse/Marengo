@@ -60,8 +60,6 @@ struct ProfileView: View {
         
         })
         .tint(.brownText)
-       
-      
         .sheet(isPresented: $isMare, content: {
             AddMareView(addMare: $profile)
         })

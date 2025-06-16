@@ -33,6 +33,8 @@ struct SheetValidationHorse: View {
                     .frame(width: 100)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.backgroundApp)
     }
 }
 

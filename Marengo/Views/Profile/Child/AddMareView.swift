@@ -38,78 +38,83 @@ struct AddMareView: View {
 
             ScrollView {
                 VStack {
-                    HStack {
-                        Text("Nouvelle Jument")
-                            .font(.title)
-                            .foregroundStyle(.brownText)
-                            .bold()
-                        Spacer()
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Text("Annuler")
-                                .foregroundStyle(.brownText)
-                                .font(.title3)
-                                .bold()
-                        }
-                    }
                     VStack{
-                        ButtonAddPicture(
-                            isShowingPhotoPicker: $isShowingPhotoPicker,
-                            photoItem: $photoItem,
-                            image: $imageUI,
-                            base64ImageString: $base64ImageString
-                        )
-                    }
-                    .frame(height: 200)
-                    .padding()
-                    HStack {
-                        TextField("Nom", text: $name)
-                            .padding()
-                            .background {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray.opacity(0.4), lineWidth: 1)
-                            }
                         
-                        Spacer()
                         
-                        TextField("Âge", text: $age)
-                            .padding()
-                            .background {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                        HStack {
+                            Text("Nouvelle Jument")
+                                .font(.title)
+                                .foregroundStyle(.brownText)
+                                .bold()
+                            Spacer()
+                            Button(action: {
+                                dismiss()
+                            }) {
+                                Text("Annuler")
+                                    .foregroundStyle(.brownText)
+                                    .font(.title3)
+                                    .bold()
                             }
-                            .keyboardType(.numberPad)
-                    }
-                    .padding()
-            
-                    
-                    HStack {
-                        Text("Caractéristiques")
-                            .font(.title2)
-                            .foregroundStyle(.brownText)
-                            .bold()
-                            .padding()
-                     
-                    }
-                    VStack(spacing: 30) {
-                        ForEach(carateristicPossible) { caracteristic in
-                            CursorHorseExtratedView(
-                                title: caracteristic.name,
-                                nameValueMin: caracteristic.min,
-                                nameValueMax: caracteristic.max,
-                                caracteristics: $caracteristics
+                        }
+                        VStack{
+                            ButtonAddPicture(
+                                isShowingPhotoPicker: $isShowingPhotoPicker,
+                                photoItem: $photoItem,
+                                image: $imageUI,
+                                base64ImageString: $base64ImageString
                             )
                         }
+                        .frame(height: 200)
+                        .padding()
+                        HStack {
+                            TextField("Nom", text: $name)
+                                .padding()
+                                .background {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                                }
+                            
+                            Spacer()
+                            
+                            TextField("Âge", text: $age)
+                                .padding()
+                                .background {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                                }
+                                .keyboardType(.numberPad)
+                        }
+                        .padding()
+                        
+                        
+                        HStack {
+                            Text("Caractéristiques")
+                                .font(.title2)
+                                .foregroundStyle(.brownText)
+                                .bold()
+                                .padding()
+                            
+                        }
+                        VStack(spacing: 30) {
+                            ForEach(carateristicPossible) { caracteristic in
+                                CursorHorseExtratedView(
+                                    title: caracteristic.name,
+                                    nameValueMin: caracteristic.min,
+                                    nameValueMax: caracteristic.max,
+                                    caracteristics: $caracteristics
+                                )
+                            }
+                        }
+                        .padding()
+                        
                     }
-                    .padding()
-                
+                    
                 }
-             
+                .scrollIndicators(.hidden)
+                
             }
             .scrollIndicators(.hidden)
-     
-            
+            .padding()
             VStack {
                 Spacer()
                 Button {
@@ -126,15 +131,17 @@ struct AddMareView: View {
                 } label: {
                     Text("Enregistrer")
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundColor(isFormComplete ? .whiteOrange : .white)
                         .padding()
                         .frame(width: 300, height: 50)
-                        .background(Color.blue)
+                        .background(isFormComplete ? Color.accent : Color.gray)
                         .cornerRadius(20)
+                        .scaleEffect(isFormComplete ? 1.0 : 0.95)
                 }
+                .disabled(!isFormComplete)
             }
         }
-        .padding()
+    
         .onChange(of: isPresented) {
             if isPresented {
                 dismiss()
@@ -144,6 +151,11 @@ struct AddMareView: View {
             SheetValidationHorse(isPresented: $isPresented)
                 .presentationDetents([.height(150)])
         }
+    }
+    private var isFormComplete: Bool {
+        return caracteristics.count >= carateristicPossible.count &&
+        !name.isEmpty &&
+        !age.isEmpty
     }
 }
 
