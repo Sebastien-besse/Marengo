@@ -13,6 +13,8 @@ struct CursorHorseExtratedView: View {
     var nameValueMax: String
     @State var ratingMare: RatingCaracteristic = .zero
     @Binding var caracteristics: [Caracteristic]
+    @State private var caracteristique: Caracteristic = Caracteristic(name: "", rating: .zero, min: "", max: "")
+    
     var body: some View {
         VStack{
             Text(title)
@@ -30,9 +32,17 @@ struct CursorHorseExtratedView: View {
                 ForEach(RatingCaracteristic.allCases, id: \.self.rawValue) { rating in
                     if rating != .zero {
                         Button {
-                            ratingMare = rating
-                            caracteristics.append(Caracteristic(name: title, rating: ratingMare, min: nameValueMin, max: nameValueMax))
-                            print(caracteristics)
+                            if ratingMare == .zero {
+                                ratingMare = rating
+                                caracteristique = Caracteristic(name: title, rating: ratingMare, min: nameValueMin, max: nameValueMax)
+                                caracteristics.append(caracteristique)
+                            }
+                            
+                            else{
+                                caracteristique.rating = rating
+                                ratingMare = rating
+                            }
+                           
                   
                         } label: {
                             Text("\(rating.rawValue)")

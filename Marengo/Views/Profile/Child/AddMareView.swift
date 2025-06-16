@@ -35,7 +35,7 @@ struct AddMareView: View {
         ZStack{
             Color.backgroundApp
                 .ignoresSafeArea()
-
+            
             ScrollView {
                 VStack {
                     VStack{
@@ -104,10 +104,12 @@ struct AddMareView: View {
                                     caracteristics: $caracteristics
                                 )
                             }
+
                         }
                         .padding()
                         
                     }
+
                     
                 }
                 .scrollIndicators(.hidden)
@@ -115,9 +117,11 @@ struct AddMareView: View {
             }
             .scrollIndicators(.hidden)
             .padding()
+
             VStack {
                 Spacer()
                 Button {
+                    
                     addMare.addMare(
                         name: name,
                         age: UInt8(age) ?? 0,
@@ -154,9 +158,13 @@ struct AddMareView: View {
     }
     private var isFormComplete: Bool {
         return caracteristics.count >= carateristicPossible.count &&
-        !name.isEmpty &&
-        !age.isEmpty
+
+               !name.isEmpty &&
+               !age.isEmpty
     }
+    
+
+
 }
 
 #Preview {

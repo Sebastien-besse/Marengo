@@ -36,14 +36,14 @@ struct SearchBarExtractedView: View {
                     }
                 }
             }
-            .padding(.vertical, 12)
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(.white))
-            )
+
+            .padding(12)
+            .background(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 30))
             .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color(.gray).opacity(0.3), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 30)
+                    .stroke(.brownStroke , lineWidth: 1)
+
             )
         }
     
