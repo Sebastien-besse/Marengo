@@ -21,6 +21,7 @@ struct EventsView: View {
                 .ignoresSafeArea()
             
             NavigationStack{
+                
                 ScrollView{
                 VStack{
                     
@@ -61,11 +62,15 @@ struct EventsView: View {
                     }.background(Color.backgroundApp)
                     
                 }
+                .toolbarBackground(Color.backgroundApp.opacity(0.5))
+                .padding(.horizontal)
                 
                 .background(Color.backgroundApp)
+                
+                
             
             }
-            .padding()
+            
             
         }
     }
