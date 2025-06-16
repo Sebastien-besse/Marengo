@@ -101,18 +101,19 @@ struct AddMareView: View {
             VStack{
                 Spacer()
                 Button {
-                    print("here 1 \(addMare.profile.mare)")
                     addMare.addMare(name: name, age: UInt8(age) ?? 0, image: image, imageP: imageP, discipline: descipline, caracteristc: caracteristics, foal: foal)
                     isSave.toggle()
                 } label: {
                     Text("Enregistrer")
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundColor(isFormComplete ? .whiteOrange : .white)
                         .padding()
                         .frame(width: 300, height: 50)
-                        .background(Color.blue)
+                        .background(isFormComplete ? Color.accent : Color.gray)
                         .cornerRadius(20)
+                        .scaleEffect(isFormComplete ? 1.0 : 0.95)
                 }
+                .disabled(!isFormComplete)
             }
         }
         .onChange(of: isPresented) {
@@ -126,6 +127,11 @@ struct AddMareView: View {
                 
         }
         
+    }
+    private var isFormComplete: Bool {
+        return caracteristics.count >= carateristicPossible.count &&
+               !name.isEmpty &&
+               !age.isEmpty
     }
     
 }
