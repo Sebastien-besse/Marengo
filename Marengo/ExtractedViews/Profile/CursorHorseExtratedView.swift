@@ -35,7 +35,7 @@ struct CursorHorseExtratedView: View {
                   
                         } label: {
                             Text("\(rating.rawValue)")
-                                .font(.title)
+                                .font(.title3)
                                 .foregroundStyle(.brownText)
                                 .padding()
                                 .background{
@@ -46,6 +46,7 @@ struct CursorHorseExtratedView: View {
                     }
                 }
             }
+
         }
     }
 }

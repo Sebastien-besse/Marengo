@@ -21,13 +21,10 @@ struct ButtonAddCircularExtractedView: View {
                 .foregroundColor(.accentColor)
                 .overlay {
                     Image(systemName: systemImage)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.brownText)
                         .bold()
                 }
         }
-//        .sheet(isPresented: $showingModal) {
-//            AddAdvertisementModalView()
-//       }
     }
 }
 

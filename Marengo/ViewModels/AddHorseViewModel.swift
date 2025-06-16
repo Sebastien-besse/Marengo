@@ -7,11 +7,14 @@
 
 import Foundation
 
+
 @Observable
 class AddHorseViewModel {
     
+    var showingMareDetails = false
+    var selectedStallion: Mare?
     
-    var profile : Profile = Profile(name: "Bernard", image: "person1", stallion: [], mare: [
+    var profile : Profile = Profile(name: "Bernard", image: "person1", stallion: stallions, mare: [
         Mare(name: "Pupuce", age: 8, image: "horse4", imageP: "horse1p", discipline: .Dressage, foal: foal1,
              caracteristc: [
                 Caracteristic(name: "Ossature", rating: .five, min: "Légère", max: "Lourde"),
@@ -43,6 +46,11 @@ class AddHorseViewModel {
     func addStallion(name: String, age: UInt8, image: String, imageP: String, discipline: Discipline, descendant: [Horse], ancestor: [Horse], price: Int, caracteristc: [Caracteristic]){
         let newHorse = Stallion(name: name, age: age, image: image, imageP: imageP, discipline: discipline, descendent: descendant, ancestor: ancestor, price: price, caracteristc: caracteristc)
         profile.stallion.append(newHorse)
+    }
+    
+    func selectMare(_ mare: Mare) {
+        selectedStallion = mare
+        showingMareDetails = true
     }
    
 }
