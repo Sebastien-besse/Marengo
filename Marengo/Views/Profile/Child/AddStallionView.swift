@@ -6,20 +6,34 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct AddStallionView: View {
     @Environment(\.dismiss) private var dismiss
+    
     @State var name: String = ""
     @State var age: String = ""
-    @State var image: String = "horse2"
-    @State var imageP: String = "horse2p"
+
+    @State var image: String = "horse1"
+    @State var imageP: String = "horse1p"
+    @State var price: String = ""
+    @State var city: String = ""
+    
+    @State private var imageUI: Image? = nil
+    @State private var base64ImageString: String = "horse1p"
+    @State private var photoItem: PhotosPickerItem? = nil
+    @State private var isShowingPhotoPicker: Bool = false
+    
     @State var descipline: Discipline = .CCE
     @State var caracteristics: [Caracteristic] = []
     @State var descendent: [Horse] = []
     @State var ancestor: [Horse] = []
-    @State var price: Int = 0
+    
     @Binding var addStallion: AddHorseViewModel
     @State var ratingHorse: RatingCaracteristic = .zero
+    @State var isPresented: Bool = false
+    @State var isSave: Bool = false
+    
     var body: some View {
         ZStack{
             Color.backgroundApp
@@ -40,78 +54,119 @@ struct AddStallionView: View {
                                 .bold()
                         }
                     }
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(.gray.opacity(0.4))
-                        .frame(width: max(370, 0), height: max(300, 0))
-                        .overlay {
-                            Button {
-                                
-                            } label: {
-                                Image(systemName: "photo.badge.plus.fill")
-                                    .resizable()
-                                    .foregroundStyle(.white)
-                                    .scaledToFit()
-                                    .frame(width: 150, height: 150)
-                                    .onTapGesture {
-                                    }
-                            }
-                        }
-                    HStack{
-                        TextField("Nom", text: $name)
-                            .padding()
-                            .background(content: {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray.opacity(0.4), lineWidth: 1)
-                                
-                            })
-                        Spacer()
-                        TextField("Âge", text: $age)
-                            .padding()
-                            .background(content: {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray.opacity(0.4), lineWidth: 1)
-                            })
-                            .keyboardType(.numberPad)
+                    
+                    VStack {
+                        ButtonAddPicture(
+                            isShowingPhotoPicker: $isShowingPhotoPicker,
+                            photoItem: $photoItem,
+                            image: $imageUI,
+                            base64ImageString: $base64ImageString
+                        )
                     }
-                    HStack{
+                    .frame(height: 200)
+                    .padding()
+                    VStack{
+                        HStack {
+                            TextField("Nom", text: $name)
+                                .padding()
+                                .background {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                                }
+                            
+                            Spacer()
+                            
+                            TextField("Âge", text: $age)
+                                .padding()
+                                .background {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                                }
+                                .keyboardType(.numberPad)
+                        }
+                        HStack {
+                            TextField("Prix", text: $price)
+                                .padding()
+                                .background {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                                }
+                            
+                            Spacer()
+                            
+                            TextField("Ville", text: $city)
+                                .padding()
+                                .background {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                                }
+                                .keyboardType(.numberPad)
+                        }
+
+                    }
+                    .padding()
+                    
+                    HStack {
                         Text("Caractéristiques")
+                            .font(.title2)
+                            .foregroundStyle(.brownText)
                             .bold()
                             .padding()
                     }
                     
-                    ForEach(carateristicPossible) { caracteristic in
-                        CursorHorseExtratedView(title: caracteristic.name, nameValueMin: caracteristic.min, nameValueMax: caracteristic.max, caracteristics: $caracteristics)
+                    VStack(spacing: 30) {
+                        ForEach(carateristicPossible) { caracteristic in
+                            CursorHorseExtratedView(
+                                title: caracteristic.name,
+                                nameValueMin: caracteristic.min,
+                                nameValueMax: caracteristic.max,
+                                caracteristics: $caracteristics
+                            )
+                        }
                     }
-                    
-                }
+
+                    .padding()
+                }          
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
             .scrollIndicators(.hidden)
-            .padding()
-            VStack{
+            
+            VStack {
                 Spacer()
-                    Button {
-                        addStallion.addStallion(name: name, age: UInt8(age) ?? 0, image: image, imageP: imageP, discipline: descipline, descendant: descendent, ancestor: ancestor, price: price, caracteristc: caracteristics)
-                        dismiss()
-                    } label: {
-                        Text("Enregistrer")
-                            .font(.headline)
-                            .foregroundColor(isFormComplete ? .whiteOrange : .white)
-                            .padding()
-                            .frame(width: 300, height: 50)
-                            .background(isFormComplete ? Color.accent : Color.gray)
-                            .cornerRadius(20)
-                            .scaleEffect(isFormComplete ? 1.0 : 0.95)
-                    }
-                    .disabled(!isFormComplete)
+                Button {
+                    addStallion.addStallion(
+                        name: name,
+                        age: UInt8(age) ?? 0,
+                        image: image,
+                        imageP: imageP,
+                        discipline: descipline,
+                        descendant: descendent,
+                        ancestor: ancestor,
+                        price: Int(price) ?? 0,
+                        caracteristc: caracteristics
+                    )
+                    isSave.toggle()
+                } label: {
+                    Text("Enregistrer")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: 300, height: 50)
+                        .background(Color.blue)
+                        .cornerRadius(20)
                 }
             }
         }
-    
-    private var isFormComplete: Bool {
-        return caracteristics.count >= carateristicPossible.count &&
-               !name.isEmpty &&
-               !age.isEmpty
+        .padding()
+        .onChange(of: isPresented) {
+            if isPresented {
+                dismiss()
+            }
+        }
+        .popover(isPresented: $isSave) {
+            SheetValidationHorse(isPresented: $isPresented)
+                .presentationDetents([.height(150)])
+        }
     }
 }
 

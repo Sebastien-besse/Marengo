@@ -41,6 +41,23 @@ struct AdvertisementDetailsView: View {
                                     )
                             }
                             
+
+                            Text("Haras du Henno 59250")
+                                .font(.headline)
+                                .foregroundStyle(.primary)
+                        }
+                        .padding(.top, 20)
+                        
+                        // Description avec fond
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("\(stallion.name) est un joli étalon de \(stallion.age) ans avec d'excellentes aptitudes pour le saut d'obstacles. Il présente un potentiel remarquable et une grande docilité qui en font un partenaire idéal pour la compétition.")
+                                .font(.body)
+                                .foregroundStyle(.primary)
+                                .padding(16)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color(.systemGray6))
+                                )
                             CaracteristicsSlidersextractedView()
                             
                             PerformancesExtractedView()
@@ -48,6 +65,7 @@ struct AdvertisementDetailsView: View {
                             ProductionExtractedView()
                             
                             ContactButtonExtractedView()
+
                         }
                         .padding(.horizontal, 20)
                     }
