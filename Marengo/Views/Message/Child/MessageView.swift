@@ -19,6 +19,7 @@ struct MessageView: View {
     @State var newMessage: String = ""
     @ObservedObject var conversation: Conversation
     
+    @FocusState private var isFocused: Bool
     
     func showListMessages(_ listMessage: [Message]) -> some View {
         
@@ -97,6 +98,7 @@ struct MessageView: View {
                 HStack{
                     TextField("Ecrire ici", text: $newMessage)
                         .padding(12)
+                        .focused($isFocused)
                         .background(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 30))
                         .overlay(
@@ -121,6 +123,11 @@ struct MessageView: View {
                 }
             }
             .padding()
+        }
+        .onTapGesture {
+            
+            isFocused = false
+            
         }
         .toolbarBackground(Color.backgroundApp.opacity(0.5))
         .navigationBarBackButtonHidden()

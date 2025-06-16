@@ -11,7 +11,7 @@ import SwiftUI
 struct SearchBarExtractedView: View {
     @Binding var searchText: String
     let onSearchTextChanged: (String) -> Void
-    
+   
     var body: some View {
         
             HStack {
@@ -24,6 +24,7 @@ struct SearchBarExtractedView: View {
                     .onChange(of: searchText) {
                         onSearchTextChanged(searchText)
                     }
+                   
                 
                 if !searchText.isEmpty {
                     Button(action: {
@@ -36,7 +37,7 @@ struct SearchBarExtractedView: View {
                     }
                 }
             }
-
+            
             .padding(12)
             .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: 30))

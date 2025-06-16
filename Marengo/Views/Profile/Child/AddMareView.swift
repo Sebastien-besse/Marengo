@@ -29,6 +29,8 @@ struct AddMareView: View {
     
     @Binding var addMare: AddHorseViewModel
     @State var isPresented: Bool = false
+    @FocusState private var isFocusedName: Bool
+    @FocusState private var isFocusedAge: Bool
     
     var body: some View {
         
@@ -69,18 +71,22 @@ struct AddMareView: View {
                         HStack {
                             TextField("Nom", text: $name)
                                 .padding()
+                                .focused($isFocusedName)
                                 .background {
                                     RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                                        .stroke(.brownStroke.opacity(0.5), lineWidth: 1)
+                                
                                 }
                             
                             Spacer()
                             
                             TextField("Âge", text: $age)
                                 .padding()
+                                .focused($isFocusedAge)
                                 .background {
                                     RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                                        .stroke(.brownStroke.opacity(0.5), lineWidth: 1)
+                                
                                 }
                                 .keyboardType(.numberPad)
                         }
@@ -106,17 +112,18 @@ struct AddMareView: View {
                             }
 
                         }
-                        .padding()
+                        
                         
                     }
 
                     
                 }
                 .scrollIndicators(.hidden)
-                
+                .padding(.bottom,60)
             }
             .scrollIndicators(.hidden)
             .padding()
+            
 
             VStack {
                 Spacer()
@@ -145,7 +152,11 @@ struct AddMareView: View {
                 .disabled(!isFormComplete)
             }
         }
-    
+        .onTapGesture {
+            
+            isFocusedName = false
+            isFocusedAge = false
+        }
         .onChange(of: isPresented) {
             if isPresented {
                 dismiss()

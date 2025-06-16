@@ -34,6 +34,10 @@ struct AddStallionView: View {
     @State var isPresentedS: Bool = false
     @State var isSaveS: Bool = false
     
+    @FocusState private var isFocusedName: Bool
+    @FocusState private var isFocusedAge: Bool
+    @FocusState private var isFocusedCity: Bool
+    @FocusState private var isFocusedPrice: Bool
     var body: some View {
         ZStack{
             Color.backgroundApp
@@ -70,6 +74,7 @@ struct AddStallionView: View {
                             HStack {
                                 TextField("Nom", text: $name)
                                     .padding()
+                                    .focused($isFocusedName)
                                     .background {
                                         RoundedRectangle(cornerRadius: 10)
                                             .stroke(.brownStroke.opacity(0.5), lineWidth: 1)
@@ -79,6 +84,7 @@ struct AddStallionView: View {
                                 
                                 TextField("Âge", text: $age)
                                     .padding()
+                                    .focused($isFocusedAge)
                                     .background {
                                         RoundedRectangle(cornerRadius: 10)
                                             .stroke(.brownStroke.opacity(0.5), lineWidth: 1)
@@ -88,20 +94,23 @@ struct AddStallionView: View {
                             HStack {
                                 TextField("Prix", text: $price)
                                     .padding()
-                                    .background {
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .stroke(.brownStroke.opacity(0.5), lineWidth: 1)
-                                    }
-                                
-                                Spacer()
-                                
-                                TextField("Ville", text: $city)
-                                    .padding()
+                                    .focused($isFocusedPrice)
                                     .background {
                                         RoundedRectangle(cornerRadius: 10)
                                             .stroke(.brownStroke.opacity(0.5), lineWidth: 1)
                                     }
                                     .keyboardType(.numberPad)
+                                
+                                Spacer()
+                                
+                                TextField("Ville", text: $city)
+                                    .padding()
+                                    .focused($isFocusedCity)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(.brownStroke.opacity(0.5), lineWidth: 1)
+                                    }
+                                    
                             }
                             
                         }
@@ -126,7 +135,7 @@ struct AddStallionView: View {
                             }
                         }
                         
-                        .padding()
+                        
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 }
@@ -152,6 +161,13 @@ struct AddStallionView: View {
                 }
                 .disabled(!isFormComplete)
             }
+        }
+        .onTapGesture {
+            
+            isFocusedName = false
+            isFocusedAge = false
+            isFocusedPrice = false
+            isFocusedCity = false
         }
         .onChange(of: isPresentedS) {
             if isPresentedS {

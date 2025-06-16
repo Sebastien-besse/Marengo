@@ -6,7 +6,7 @@ struct AdvertisementView: View {
     @State var isStallion: Bool = false
     @State var profile = AddHorseViewModel()
     //@State var stallions = AdvertisementView()
-    
+    @FocusState private var isFocused: Bool
     var body: some View {
         
         ZStack{
@@ -22,7 +22,9 @@ struct AdvertisementView: View {
                             onSearchTextChanged: { _ in
                                 viewModel.filterHorses()
                             }
+                                
                         )
+                        .focused($isFocused)
                         .padding(.horizontal, 16)
                         .padding(.bottom, 10)
                     }
@@ -87,6 +89,12 @@ struct AdvertisementView: View {
                    
                 }
                 
+                    .onTapGesture {
+                        
+                        isFocused = false
+                        
+                    }
+                
                 
                 .onAppear {
                     viewModel.loadSampleData()
@@ -102,6 +110,8 @@ struct AdvertisementView: View {
                 .navigationTitle("Annonces")
             }
         }
+        
+        
         
     }
 

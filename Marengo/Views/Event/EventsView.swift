@@ -13,7 +13,7 @@ struct EventsView: View {
     @State var date: Date
     @State private var showDatePicker: Bool = false
     @State private var searchText = ""
-    
+    @FocusState private var isFocused: Bool
     var body: some View {
         
         ZStack {
@@ -29,6 +29,7 @@ struct EventsView: View {
                         searchText: $eventsVM.searchText
                         
                     )
+                    .focused($isFocused)
                     .padding(.horizontal, 20)
                     .padding(.bottom, 10)
                     
@@ -48,7 +49,13 @@ struct EventsView: View {
                         
                         
                     }.padding()
-                }.background(Color.backgroundApp)
+                }
+                .onTapGesture {
+                    
+                    isFocused = false
+                    
+                }
+                .background(Color.backgroundApp)
                 
                 
                     ForEach(eventsVM.filterEvents){ event in
@@ -74,6 +81,7 @@ struct EventsView: View {
             
             
         }
+        
     }
 }
 
