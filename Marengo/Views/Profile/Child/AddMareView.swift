@@ -31,7 +31,11 @@ struct AddMareView: View {
     @State var isPresented: Bool = false
     
     var body: some View {
-        ZStack {
+        
+        ZStack{
+            Color.backgroundApp
+                .ignoresSafeArea()
+
             ScrollView {
                 VStack {
                     HStack {

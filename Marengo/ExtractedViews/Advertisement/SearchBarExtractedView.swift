@@ -13,34 +13,40 @@ struct SearchBarExtractedView: View {
     let onSearchTextChanged: (String) -> Void
     
     var body: some View {
-        HStack {
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(.gray)
-                .padding(.leading, 12)
-            
-            TextField("Rechercher un étalon...", text: $searchText)
-                .textFieldStyle(PlainTextFieldStyle())
-                .onChange(of: searchText) {
-                    onSearchTextChanged(searchText)
-                }
-            
-            if !searchText.isEmpty {
-                Button(action: {
-                    searchText = ""
-                    onSearchTextChanged("")
-                }) {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.gray)
-                        .padding(.trailing, 8)
+        
+            HStack {
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(.gray)
+                    .padding(.leading, 12)
+                
+                TextField("Rechercher un étalon...", text: $searchText)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .onChange(of: searchText) {
+                        onSearchTextChanged(searchText)
+                    }
+                
+                if !searchText.isEmpty {
+                    Button(action: {
+                        searchText = ""
+                        onSearchTextChanged("")
+                    }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.gray)
+                            .padding(.trailing, 8)
+                    }
                 }
             }
+            .padding(.vertical, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(.white))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color(.gray).opacity(0.3), lineWidth: 1)
+            )
         }
-        .padding(.vertical, 12)
-        .background(
-            RoundedRectangle(cornerRadius: 10)
-                .fill(Color(.systemGray6))
-        )
-    }
+    
 }
 
 #Preview {

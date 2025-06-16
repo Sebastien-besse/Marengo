@@ -29,12 +29,16 @@ struct ListConversationView: View {
                         
                         
                     }
+                    .padding(.horizontal)
                 }
                 .background(.backgroundApp)
                 .navigationTitle("Messages")
+                .toolbarBackground(Color.backgroundApp.opacity(0.5))
+                
+                
                 
             }
-            .padding()
+            
             
         }
     }

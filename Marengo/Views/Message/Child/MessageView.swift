@@ -93,6 +93,7 @@ struct MessageView: View {
                 }
                 
                 
+                
                 HStack{
                     TextField("Ecrire ici", text: $newMessage)
                         .padding(12)
@@ -121,7 +122,9 @@ struct MessageView: View {
             }
             .padding()
         }
+        .toolbarBackground(Color.backgroundApp.opacity(0.5))
         .navigationBarBackButtonHidden()
+        
         .toolbar{
             ToolbarItem(placement: .topBarLeading){
                 HStack{
@@ -149,6 +152,8 @@ struct MessageView: View {
                 
             }
         }
+        
+        
     }
 }
 

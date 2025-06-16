@@ -13,6 +13,7 @@ struct AddStallionView: View {
     
     @State var name: String = ""
     @State var age: String = ""
+
     @State var image: String = "horse1"
     @State var imageP: String = "horse1p"
     @State var price: String = ""
@@ -34,16 +35,19 @@ struct AddStallionView: View {
     @State var isSave: Bool = false
     
     var body: some View {
-        ZStack {
+        ZStack{
+            Color.backgroundApp
+                .ignoresSafeArea()
             ScrollView {
-                VStack {
+                VStack{
                     HStack {
-                        Text("Nouvel Étalon")
+                        Text("Nouveau Etalon")
                             .font(.title)
-                            .foregroundStyle(.brownText)
                             .bold()
                         Spacer()
-                        Button(action: { dismiss() }) {
+                        Button(action: {
+                            dismiss()
+                        }) {
                             Text("Annuler")
                                 .foregroundStyle(.brownText)
                                 .font(.title3)
@@ -120,8 +124,10 @@ struct AddStallionView: View {
                             )
                         }
                     }
+
                     .padding()
-                }
+                }          
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
             .scrollIndicators(.hidden)
             

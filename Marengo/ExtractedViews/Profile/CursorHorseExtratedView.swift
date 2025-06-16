@@ -44,10 +44,9 @@ struct CursorHorseExtratedView: View {
                                 }
                         }
                     }
-           
                 }
             }
-   
+
         }
     }
 }
