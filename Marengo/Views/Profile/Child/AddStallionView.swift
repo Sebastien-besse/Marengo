@@ -15,6 +15,8 @@ struct AddStallionView: View {
     @State var age: String = ""
     @State var image: String = "horse1"
     @State var imageP: String = "horse1p"
+    @State var price: String = ""
+    @State var city: String = ""
     
     @State private var imageUI: Image? = nil
     @State private var base64ImageString: String = "horse1p"
@@ -25,7 +27,6 @@ struct AddStallionView: View {
     @State var caracteristics: [Caracteristic] = []
     @State var descendent: [Horse] = []
     @State var ancestor: [Horse] = []
-    @State var price: Int = 0
     
     @Binding var addStallion: AddHorseViewModel
     @State var ratingHorse: RatingCaracteristic = .zero
@@ -60,24 +61,44 @@ struct AddStallionView: View {
                     }
                     .frame(height: 200)
                     .padding()
-                    
-                    HStack {
-                        TextField("Nom", text: $name)
-                            .padding()
-                            .background {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray.opacity(0.4), lineWidth: 1)
-                            }
-                        
-                        Spacer()
-                        
-                        TextField("Âge", text: $age)
-                            .padding()
-                            .background {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray.opacity(0.4), lineWidth: 1)
-                            }
-                            .keyboardType(.numberPad)
+                    VStack{
+                        HStack {
+                            TextField("Nom", text: $name)
+                                .padding()
+                                .background {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                                }
+                            
+                            Spacer()
+                            
+                            TextField("Âge", text: $age)
+                                .padding()
+                                .background {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                                }
+                                .keyboardType(.numberPad)
+                        }
+                        HStack {
+                            TextField("Prix", text: $price)
+                                .padding()
+                                .background {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                                }
+                            
+                            Spacer()
+                            
+                            TextField("Ville", text: $city)
+                                .padding()
+                                .background {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                                }
+                                .keyboardType(.numberPad)
+                        }
+
                     }
                     .padding()
                     
@@ -115,7 +136,7 @@ struct AddStallionView: View {
                         discipline: descipline,
                         descendant: descendent,
                         ancestor: ancestor,
-                        price: price,
+                        price: Int(price) ?? 0,
                         caracteristc: caracteristics
                     )
                     isSave.toggle()

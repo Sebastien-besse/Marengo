@@ -54,7 +54,11 @@ struct ProfileView: View {
             Button(role: .cancel, action: {}) {
                 Text("Annuler")
             }
+        
         })
+        .tint(.brownText)
+       
+      
         .sheet(isPresented: $isMare, content: {
             AddMareView(addMare: $profile)
         })
