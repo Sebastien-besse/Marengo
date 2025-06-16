@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct AddMareView: View {
     @Environment(\.dismiss) private var dismiss
@@ -14,6 +15,12 @@ struct AddMareView: View {
     @State var age: String = ""
     @State var image: String = "horse1"
     @State var imageP: String = "horse1p"
+    
+    @State private var imageUI: Image? = nil
+    @State private var base64ImageString: String = "horse1p"
+    @State private var photoItem: PhotosPickerItem? = nil
+    @State private var isShowingPhotoPicker: Bool = false
+    
     @State var descipline: Discipline = .CCE
     @State var caracteristics: [Caracteristic] = []
     @State var foal: Foal = .init(caracteristic: [], discipline: .CCE)
@@ -24,13 +31,13 @@ struct AddMareView: View {
     @State var isPresented: Bool = false
     
     var body: some View {
-        
-        ZStack{
+        ZStack {
             ScrollView {
-                VStack{
+                VStack {
                     HStack {
                         Text("Nouvelle Jument")
                             .font(.title)
+                            .foregroundStyle(.brownText)
                             .bold()
                         Spacer()
                         Button(action: {
@@ -42,65 +49,75 @@ struct AddMareView: View {
                                 .bold()
                         }
                     }
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(.gray.opacity(0.4))
-                        .frame(width: .infinity, height: 300)
-                        .overlay {
-                            Button {
-                                
-                            } label: {
-                                Image(systemName: "photo.badge.plus.fill")
-                                    .resizable()
-                                    .foregroundStyle(.white)
-                                    .scaledToFit()
-                                    .frame(width: 150, height: 150)
-                                    .onTapGesture {
-                                        
-                                    }
-                            }
-                        }
-                    HStack{
+                    VStack{
+                        ButtonAddPicture(
+                            isShowingPhotoPicker: $isShowingPhotoPicker,
+                            photoItem: $photoItem,
+                            image: $imageUI,
+                            base64ImageString: $base64ImageString
+                        )
+                    }
+                    .frame(height: 200)
+                    .padding()
+                    HStack {
                         TextField("Nom", text: $name)
                             .padding()
-                            .background(content: {
+                            .background {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.gray.opacity(0.4), lineWidth: 1)
-                                
-                            })
+                            }
+                        
                         Spacer()
+                        
                         TextField("Âge", text: $age)
                             .padding()
-                            .background(content: {
+                            .background {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.gray.opacity(0.4), lineWidth: 1)
-                            })
+                            }
                             .keyboardType(.numberPad)
                     }
-                    HStack{
+                    .padding()
+            
+                    
+                    HStack {
                         Text("Caractéristiques")
+                            .font(.title2)
+                            .foregroundStyle(.brownText)
                             .bold()
                             .padding()
-                        Image(systemName: "arrow.down")
-                            .resizable()
-                            .foregroundStyle(.accent)
-                            .bold()
-                            .frame(width: 20, height: 20)
+                     
                     }
-                    
-                    ForEach(carateristicPossible) { caracteristic in
-                        CursorHorseExtratedView(title: caracteristic.name, nameValueMin: caracteristic.min, nameValueMax: caracteristic.max, caracteristics: $caracteristics)
+                    VStack(spacing: 30) {
+                        ForEach(carateristicPossible) { caracteristic in
+                            CursorHorseExtratedView(
+                                title: caracteristic.name,
+                                nameValueMin: caracteristic.min,
+                                nameValueMax: caracteristic.max,
+                                caracteristics: $caracteristics
+                            )
+                        }
                     }
-                    
+                    .padding()
+                
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+             
             }
             .scrollIndicators(.hidden)
-            .padding()
-            VStack{
+     
+            
+            VStack {
                 Spacer()
                 Button {
-                    print("here 1 \(addMare.profile.mare)")
-                    addMare.addMare(name: name, age: UInt8(age) ?? 0, image: image, imageP: imageP, discipline: descipline, caracteristc: caracteristics, foal: foal)
+                    addMare.addMare(
+                        name: name,
+                        age: UInt8(age) ?? 0,
+                        image: image,
+                        imageP: imageP,
+                        discipline: descipline,
+                        caracteristc: caracteristics,
+                        foal: foal
+                    )
                     isSave.toggle()
                 } label: {
                     Text("Enregistrer")
@@ -113,6 +130,7 @@ struct AddMareView: View {
                 }
             }
         }
+        .padding()
         .onChange(of: isPresented) {
             if isPresented {
                 dismiss()
@@ -121,13 +139,11 @@ struct AddMareView: View {
         .popover(isPresented: $isSave) {
             SheetValidationHorse(isPresented: $isPresented)
                 .presentationDetents([.height(150)])
-                
         }
-        
     }
-    
 }
 
 #Preview {
     AddMareView(ratingHorse: .five, addMare: .constant(AddHorseViewModel()))
 }
+

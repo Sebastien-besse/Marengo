@@ -6,102 +6,120 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct AddStallionView: View {
     @Environment(\.dismiss) private var dismiss
+    
     @State var name: String = ""
     @State var age: String = ""
     @State var image: String = "horse1"
     @State var imageP: String = "horse1p"
+    
+    @State private var imageUI: Image? = nil
+    @State private var base64ImageString: String = "horse1p"
+    @State private var photoItem: PhotosPickerItem? = nil
+    @State private var isShowingPhotoPicker: Bool = false
+    
     @State var descipline: Discipline = .CCE
     @State var caracteristics: [Caracteristic] = []
     @State var descendent: [Horse] = []
     @State var ancestor: [Horse] = []
     @State var price: Int = 0
+    
     @Binding var addStallion: AddHorseViewModel
     @State var ratingHorse: RatingCaracteristic = .zero
+    @State var isPresented: Bool = false
+    @State var isSave: Bool = false
+    
     var body: some View {
-        ZStack{
-      
+        ZStack {
             ScrollView {
-                VStack{
-                HStack {
-                    Text("Nouvelle Etalon")
-                        .font(.title)
-                        .bold()
-                    Spacer()
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Text("Annuler")
+                VStack {
+                    HStack {
+                        Text("Nouvel Étalon")
+                            .font(.title)
                             .foregroundStyle(.brownText)
-                            .font(.title3)
                             .bold()
-                    }
-                }
-               RoundedRectangle(cornerRadius: 20)
-                    .fill(.gray.opacity(0.4))
-                    .frame(width: .infinity, height: 300)
-                    .overlay {
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "photo.badge.plus.fill")
-                                .resizable()
-                                .foregroundStyle(.white)
-                                .scaledToFit()
-                                .frame(width: 150, height: 150)
-                                .onTapGesture {
-                                    
-                                }
+                        Spacer()
+                        Button(action: { dismiss() }) {
+                            Text("Annuler")
+                                .foregroundStyle(.brownText)
+                                .font(.title3)
+                                .bold()
                         }
                     }
-                HStack{
-                    TextField("Nom", text: $name)
-                        .padding()
-                        .background(content: {
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray.opacity(0.4), lineWidth: 1)
-                          
-                        })
-                    Spacer()
-                    TextField("Âge", text: $age)
-                        .padding()
-                        .background(content: {
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray.opacity(0.4), lineWidth: 1)
-                        })
-                        .keyboardType(.numberPad)
-                }
-                    HStack{
+                    
+                    VStack {
+                        ButtonAddPicture(
+                            isShowingPhotoPicker: $isShowingPhotoPicker,
+                            photoItem: $photoItem,
+                            image: $imageUI,
+                            base64ImageString: $base64ImageString
+                        )
+                    }
+                    .frame(height: 200)
+                    .padding()
+                    
+                    HStack {
+                        TextField("Nom", text: $name)
+                            .padding()
+                            .background {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                            }
+                        
+                        Spacer()
+                        
+                        TextField("Âge", text: $age)
+                            .padding()
+                            .background {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                            }
+                            .keyboardType(.numberPad)
+                    }
+                    .padding()
+                    
+                    HStack {
                         Text("Caractéristiques")
-                                .bold()
-                                .padding()
-                        Image(systemName: "arrow.down")
-                            .resizable()
-                            .foregroundStyle(.accent)
+                            .font(.title2)
+                            .foregroundStyle(.brownText)
                             .bold()
-                            .frame(width: 20, height: 20)
+                            .padding()
                     }
                     
-                    ForEach(carateristicPossible) { caracteristic in
-                        CursorHorseExtratedView(title: caracteristic.name, nameValueMin: caracteristic.min, nameValueMax: caracteristic.max, caracteristics: $caracteristics)
+                    VStack(spacing: 30) {
+                        ForEach(carateristicPossible) { caracteristic in
+                            CursorHorseExtratedView(
+                                title: caracteristic.name,
+                                nameValueMin: caracteristic.min,
+                                nameValueMax: caracteristic.max,
+                                caracteristics: $caracteristics
+                            )
+                        }
                     }
-                   
+                    .padding()
+                }
             }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        }
             .scrollIndicators(.hidden)
-            .padding()
-            VStack{
+            
+            VStack {
                 Spacer()
                 Button {
-                   
-                    addStallion.addStallion(name: name, age: UInt8(age) ?? 0, image: image, imageP: imageP, discipline: descipline, descendant: descendent, ancestor: ancestor, price: price, caracteristc: caracteristics)
-                 
-                    dismiss()
+                    addStallion.addStallion(
+                        name: name,
+                        age: UInt8(age) ?? 0,
+                        image: image,
+                        imageP: imageP,
+                        discipline: descipline,
+                        descendant: descendent,
+                        ancestor: ancestor,
+                        price: price,
+                        caracteristc: caracteristics
+                    )
+                    isSave.toggle()
                 } label: {
-                  
                     Text("Enregistrer")
                         .font(.headline)
                         .foregroundColor(.white)
@@ -111,14 +129,19 @@ struct AddStallionView: View {
                         .cornerRadius(20)
                 }
             }
-
-
         }
-        
-       
+        .padding()
+        .onChange(of: isPresented) {
+            if isPresented {
+                dismiss()
+            }
+        }
+        .popover(isPresented: $isSave) {
+            SheetValidationHorse(isPresented: $isPresented)
+                .presentationDetents([.height(150)])
+        }
     }
 }
-
 
 #Preview {
     AddStallionView(addStallion: .constant(AddHorseViewModel()))

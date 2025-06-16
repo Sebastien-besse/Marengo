@@ -1,20 +1,27 @@
+//
+//  MareDetailView.swift
+//  Marengo-app
+//
+//  Created by Sebastien Besse on 15/06/2025.
+//
+
 import SwiftUI
 
-struct AdvertisementDetailsView: View {
-    let stallion: Stallion
+struct MareDetailView: View {
+    let mare: Mare
+    let profile = AddHorseViewModel()
 
     @State private var showingContactAlert = false
-    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack {
-                ImageWithOverlayExtractedView(stallion: stallion)
+                    ImageDetailMareExtractedView(mare: mare)
                     
                     VStack(spacing: 24) {
                         // Informations principales
                         HStack {
-                            Text("\(stallion.age) ans")
+                            Text("\(mare.age) ans")
                                 .font(.headline)
                                 .foregroundStyle(.primary)
                             
@@ -28,7 +35,7 @@ struct AdvertisementDetailsView: View {
                         
                         // Description avec fond
                         VStack(alignment: .leading, spacing: 12) {
-                            Text("\(stallion.name) est un joli étalon de \(stallion.age) ans avec d'excellentes aptitudes pour le saut d'obstacles. Il présente un potentiel remarquable et une grande docilité qui en font un partenaire idéal pour la compétition.")
+                            Text("\(mare.name) est une joli jument de \(mare.age) ans avec d'excellentes aptitudes pour le saut d'obstacles. Elle présente un potentiel remarquable et une grande docilité qui en font un partenaire idéal pour la compétition.")
                                 .font(.body)
                                 .foregroundStyle(.primary)
                                 .padding(16)
@@ -40,11 +47,9 @@ struct AdvertisementDetailsView: View {
                         
                         CaracteristicsSlidersextractedView()
                         
-                        PerformancesExtractedView()
                         
                         ProductionExtractedView()
                         
-                        ContactButtonExtractedView()
                     }
                     .padding(.horizontal, 20)
                 }
@@ -57,16 +62,12 @@ struct AdvertisementDetailsView: View {
                 }
             }
         }
-        .alert("Contact Vendeur", isPresented: $showingContactAlert) {
-            Button("Appeler") {
-            }
-            Button("Annuler", role: .cancel) { }
-        } message: {
-            Text("Téléphone : 06 12 34 56 78")
-        }
     }
-}
+
+    }
 
 #Preview {
-    AdvertisementDetailsView(stallion: stallions[0])
+    MareDetailView(mare: .init(name: "Jument", age: 4, image: "horse1", imageP: "horse1p", discipline: .CCE, foal: .init(caracteristic: caracteristics, discipline: .CCE), caracteristc: caracteristics))
 }
+
+
