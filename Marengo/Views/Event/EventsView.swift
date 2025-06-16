@@ -62,6 +62,7 @@ struct EventsView: View {
                     }.background(Color.backgroundApp)
                     
                 }
+                .scrollIndicators(.hidden)
                 .toolbarBackground(Color.backgroundApp.opacity(0.5))
                 .padding(.horizontal)
                 

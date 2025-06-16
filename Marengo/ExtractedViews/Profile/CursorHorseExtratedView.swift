@@ -18,6 +18,7 @@ struct CursorHorseExtratedView: View {
     var body: some View {
         VStack{
             Text(title)
+                .foregroundStyle(.brownText)
                 .bold()
                 .frame(maxWidth: .infinity, alignment: .leading)
             HStack{
