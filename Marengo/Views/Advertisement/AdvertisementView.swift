@@ -23,7 +23,7 @@ struct AdvertisementView: View {
                                 viewModel.filterHorses()
                             }
                         )
-                        .padding(.horizontal, 20)
+                        .padding(.horizontal, 16)
                         .padding(.bottom, 10)
                     }
                     .background(Color.backgroundApp)
@@ -44,7 +44,7 @@ struct AdvertisementView: View {
                             allHorses: viewModel.allHorses
                         )
                     }
-                    .padding(20)
+                    .padding(16)
                     .background(Color.backgroundApp)
                     
                     VStack{
@@ -80,8 +80,6 @@ struct AdvertisementView: View {
                                     }
                                 }
                                 .padding(.horizontal, 16)
-                                .padding(.top, 8)
-                                .padding(.bottom, 20)
                             }
                         }
                     } .background(Color.backgroundApp)
